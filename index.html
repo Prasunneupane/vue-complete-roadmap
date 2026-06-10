@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My first Vue page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- class attribute bind -->
+        <div v-bind:class="vueClass">
+            <h1>My first Vue page</h1>
+        </div>
+        <!-- style attribute bind -->
+        <div v-bind:style="{fontSize:size}">
+            <h2>Another div with dynamic class</h2>
+        </div>
+        <!-- shortcut for v-bind is : -->
+
+        <div :style="{fontSize:size}">
+            <h2>Another div with dynamic class</h2>
+        </div>
+        <!-- Conditional rendering in vue v-if directive -->
+        <div >
+            <p v-if="showContent > 3">This content is conditionally rendered.</p>
+            <p v-else-if="showContent > 2">This content is shown when showContent is satisfied in else if condition.</p>
+            <p v-else>This content is shown when showContent is false.</p>
+        </div>
+
+        <div >
+            <p v-if="text.includes('taco')">This content is is shown when taco is included in the text.</p>
+            <p v-else-if=" text.includes('pizza')">This content is shown when pizza is included in the text.</p>
+            <p v-else>This content is shown when showContent is false.</p>
+        </div>
+
+        <!-- <button @click="showContent = !showContent">
+            Toggle Content
+        </button> -->
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    vueClass: 'pinkBG',
+                    size: '20px',
+                    showContent: 3,
+                    text:'I like taco, pizza, Thai beef salad, pho soup and tagine.'
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

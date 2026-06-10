@@ -1,0 +1,14 @@
+div {
+    margin: 20px;
+    padding: 10px;
+    border: solid black 1px;
+    display: inline-block;
+}
+
+.pinkBG {
+    background-color: rgb(238, 15, 48);
+}
+
+.blueBG {
+    background-color: lightblue;
+}
