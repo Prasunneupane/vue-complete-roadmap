@@ -40,6 +40,28 @@
             Toggle Content
         </button> -->
 
+        <!-- v-show directive -->
+        <div v-show="showdiv">
+            <p>This content is shown or hidden based on the showContent value.</p>
+        </div>
+        <!-- difference between v-show and v-if -->
+         <!-- v-show only hides the element with display property while v-if actually removes it from the DOM -->
+        <div>
+            <div v-show="showDiv">Div tag with v-show</div>
+            <div v-if="showDiv">Div tag with v-if</div>
+        </div>
+        <div>
+            <ol>
+                <li v-for="x in manyFoods">{{ x }}</li>
+            </ol>
+        </div>
+        <div>
+            <ol>
+                <li v-for="(x, index) in manyFoods2">{{ x.name }} ({{ x.type }})</li>
+            </ol>
+        </div>
+
+
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -51,7 +73,16 @@
                     vueClass: 'pinkBG',
                     size: '20px',
                     showContent: 3,
-                    text:'I like taco, pizza, Thai beef salad, pho soup and tagine.'
+                    text:'I like taco, pizza, Thai beef salad, pho soup and tagine.',
+                    showDiv: true,
+                    manyFoods: ['taco', 'pizza', 'Thai beef salad', 'pho soup', 'tagine'],
+                    manyFoods2: [
+                        { name: 'taco', type: 'Mexican' },
+                        { name: 'pizza', type: 'Italian' },
+                        { name: 'Thai beef salad', type: 'Thai' },
+                        { name: 'pho soup', type: 'Vietnamese' },
+                        { name: 'tagine', type: 'Moroccan' }
+                    ]
                 }
             }
         }).mount('#app');
