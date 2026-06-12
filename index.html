@@ -60,7 +60,32 @@
                 <li v-for="(x, index) in manyFoods2">{{ x.name }} ({{ x.type }})</li>
             </ol>
         </div>
-
+        <!-- vue events -->
+         <!-- event handling in vue is done with v-on -->
+          <div>
+            <button v-on:click="count++">Click me To increase count</button>
+            <h1>Count:{{count}}</h1>
+          </div>
+          <!-- v-on input event -->
+          <div>
+            <input v-on:input="count++" placeholder="Type something...">
+          </div>
+          <!-- v-on with for loop with array -->
+          <div>
+            <ul>
+              <li v-for="item in manyFoods2" v-on:click="count = item.name">{{ item.name }}</li>
+            </ul>
+          </div>
+          <!-- v-on shortcut is @ -->
+          <div>
+            <button @click="count++">Click me To increase count</button>
+            <h1>Count:{{count}}</h1>
+          </div>
+          <!-- v-method  -->
+           <div>
+                <button @click="writeText">Click me To increase count</button>
+                <h1>The text is:{{text1}}</h1>
+           </div>
 
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -82,7 +107,14 @@
                         { name: 'Thai beef salad', type: 'Thai' },
                         { name: 'pho soup', type: 'Vietnamese' },
                         { name: 'tagine', type: 'Moroccan' }
-                    ]
+                    ],
+                    count: 0,
+                    text1: 'Hello, Vue!'
+                }
+            },
+            methods: {
+                writeText() {
+                    this.text1 = 'You clicked the button!';
                 }
             }
         }).mount('#app');
