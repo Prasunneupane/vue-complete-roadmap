@@ -86,7 +86,25 @@
                 <button @click="writeText">Click me To increase count</button>
                 <h1>The text is:{{text1}}</h1>
            </div>
-
+           <!-- calling a method with event object -->
+            <div>
+                <button @click="writeText($event)">Click me To increase count</button>
+                <h1>The text is:{{text1}}</h1>
+            </div>
+            <div>
+                <p>Move the mouse pointer over this text.</p>
+                <div @mousemove="mousePos" style="border: 1px solid black; padding: 20px;"  >
+                    <span>xPos: {{ xPos }}</span><br><span>yPos: {{ yPos }}</span>
+                </div>
+                <div
+                v-on:mousemove="mousePos"
+                v-bind:style="{backgroundColor:'hsl('+xPos+',80%,80%)'}">
+                </div>
+            </div>
+            <div>
+                <textarea v-on:input="writeTextOnDIv" placeholder="Start writing.."></textarea>
+                    <span>{{ text }}</span>
+            </div>  
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -99,7 +117,7 @@
                     size: '20px',
                     showContent: 3,
                     text:'I like taco, pizza, Thai beef salad, pho soup and tagine.',
-                    showDiv: true,
+                    showDiv: false,
                     manyFoods: ['taco', 'pizza', 'Thai beef salad', 'pho soup', 'tagine'],
                     manyFoods2: [
                         { name: 'taco', type: 'Mexican' },
@@ -109,12 +127,28 @@
                         { name: 'tagine', type: 'Moroccan' }
                     ],
                     count: 0,
-                    text1: 'Hello, Vue!'
+                    text1: 'Hello, Vue!',
+                    xPos: 0,
+                    yPos: 0
+
                 }
             },
             methods: {
                 writeText() {
                     this.text1 = 'You clicked the button!';
+                },
+                writeTextWithEvent(event) {
+                    this.text1 = 'You clicked the button!';
+                },
+                mousePos(event) {
+                 
+                    this.xPos = event.offsetX
+                    this.yPos = event.offsetY
+                
+                    //this.text1 = `Mouse position: (${this.xPos}, ${this.yPos})`;
+                },
+                writeTextOnDIv(event) {
+                    this.text = event.target.value;
                 }
             }
         }).mount('#app');
