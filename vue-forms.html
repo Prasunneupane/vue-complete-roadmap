@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Local Storage Example</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea {
+            width: 300px;
+            padding: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .empty-message {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <h2>User Form</h2>
+
+    <form @submit.prevent="submitForm">
+
+        <label for="name">Name:</label>
+        <input
+            type="text"
+            id="name"
+            v-model="name"
+            required
+        >
+
+        <p>Your name is: {{ name }}</p>
+
+        <label for="email">Email:</label>
+        <input
+            type="email"
+            id="email"
+            v-model="email"
+            required
+        >
+
+        <p>Your email is: {{ email }}</p>
+
+        <label for="message">Message:</label>
+        <textarea
+            id="message"
+            v-model="message"
+            required
+        ></textarea>
+
+        <p>Your message is: {{ message }}</p>
+
+        <button type="submit">
+            Submit
+        </button>
+
+    </form>
+
+    <h2>Submitted Data</h2>
+
+    <table>
+
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Actions</th>
+        </tr>
+
+        <tr
+            v-for="item in itemList"
+            :key="item.email"
+        >
+            <td>{{ item.name }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.message }}</td>
+            <td>
+                <button @click="deleteItem(item)">
+                    Delete
+                </button>
+                <button @click="editItem(item)">
+                    Edit
+                </button>
+            </td>
+        </tr>
+
+        <tr v-if="itemList.length === 0">
+            <td colspan="4" class="empty-message">
+                No data available
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script>
+
+const { createApp } = Vue;
+
+createApp({
+
+    data() {
+
+        return {
+
+            name: '',
+            email: '',
+            message: '',
+
+            itemList:
+                JSON.parse(
+                    localStorage.getItem('formData')
+                ) || []
+
+        };
+
+    },
+
+    mounted() {
+
+        console.log(
+            'Data loaded from localStorage:',
+            this.itemList
+        );
+
+    },
+
+    methods: {
+
+        submitForm() {
+
+            const item = {
+
+                name: this.name,
+                email: this.email,
+                message: this.message
+
+            };
+
+            console.log(
+                'Current itemList:',
+                this.itemList
+            );
+
+            const alreadyExists =
+                this.itemList.some(existingItem => {
+
+                    return (
+                        existingItem.name === item.name ||
+                        existingItem.email === item.email
+                    );
+
+                });
+
+            if (alreadyExists) {
+
+                alert(
+                    'Name or Email already exists!'
+                );
+
+                return;
+            }
+
+            this.itemList.push(item);
+
+            localStorage.setItem(
+                'formData',
+                JSON.stringify(this.itemList)
+            );
+
+            console.log(
+                'Updated itemList:',
+                this.itemList
+            );
+
+            this.name = '';
+            this.email = '';
+            this.message = '';
+
+            alert(
+                'Data saved successfully!'
+            );
+
+        },
+        deleteItem(item) {
+
+            this.itemList =
+                this.itemList.filter(existingItem => {
+
+                    return existingItem.email !== item.email;
+
+                });
+
+            localStorage.setItem(
+                'formData',
+                JSON.stringify(this.itemList)
+            );
+
+            alert(
+                'Item deleted successfully!'
+            );
+
+        },
+        editItem(item) {
+
+            this.name = item.name;
+            this.email = item.email;
+            this.message = item.message;
+
+            // this.itemList =
+            //     this.itemList.filter(existingItem => {
+
+            //         return existingItem.email !== item.email;
+
+            //     });
+
+            // localStorage.setItem(
+            //     'formData',
+            //     JSON.stringify(this.itemList)
+            // );
+
+        }
+
+    }
+
+}).mount('#app');
+
+</script>
+
+</body>
+</html>
