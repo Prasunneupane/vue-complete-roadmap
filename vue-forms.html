@@ -56,6 +56,19 @@
         .empty-message {
             text-align: center;
         }
+        .btn{
+            border: 1px solid black;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .btn-primary{
+            background-color: #6877a4;
+            color: white;
+        }
+        .btn-danger{
+            background-color: #df0a0a;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -120,10 +133,10 @@
             <td>{{ item.email }}</td>
             <td>{{ item.message }}</td>
             <td>
-                <button @click="deleteItem(item)">
+                <button @click="deleteItem(item)" class="btn btn-primary">
                     Delete
                 </button>
-                <button @click="editItem(item)">
+                <button @click="editItem(item)" class="btn btn-danger">
                     Edit
                 </button>
             </td>
@@ -136,7 +149,9 @@
         </tr>
 
     </table>
-
+    <!-- vue css can be bind with v-bind:class and v-bind:style -->
+     <!-- css can be merge and bind in both style and classes   -->
+      
 </div>
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
