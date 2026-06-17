@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .valid {
+            color: green;
+        }
+        .invalid {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <p>Check the console to see how watchers work!</p>
+            <p>The value of watchVar is: {{ watchVar }}</p>
+            <button @click="changeWatchVar">Change watchVar</button>
+        </div>
+
+        <div>
+            <input type="range" v-model="rangeVal" >
+            <p>Value is: {{ rangeVal }}</p>
+        </div>
+        <div v-on:click="updatePos">
+            <input type="text">
+            <p>{{ xDiff }}</p>
+        </div>
+
+        <div>
+            <label>
+                <p>Type a valid e-mail address:</p>
+                <input type="email" v-model="inpAddress">
+            </label>
+            <p v-bind:class="myClass"><code>{{ feedbackText }}</code></p> 
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp} = Vue;
+        const app = createApp({
+            data() {
+                return{
+                    watchVar :1,
+                    rangeVal:70,
+                    xPos:0,
+                    xDiff:0,
+                    inpAddress: '',
+                    feedbackText: '',
+                    myClass: 'invalid'
+                }
+                
+            },
+            watch:{
+                watchVar(){
+                    console.log("I'm watching for changes in watchVar. It has changed to ",this.watchVar)
+                },
+                rangeVal(val){
+                    if(val > 20 && val <60){
+                        if(val <40){
+                            this.rangeVal=20
+                        }else{
+                            this.rangeVal=60
+                        }
+                    }
+                },
+                xPos(newVal,oldVal){
+                    this.xDiff = newVal - oldVal;
+                },
+                inpAddress(newVal,oldVal) {
+                    if(!newVal.includes('@')){
+                        this.feedbackText = 'The e-mail address is NOT valid';
+                        this.myClass = 'invalid';
+                    }
+                    else if(!oldVal.includes('@') && newVal.includes('@')) {
+                        this.feedbackText = 'Perfect! You fixed it!';
+                        this.myClass = 'valid'
+                    }
+                    else {
+                        this.feedbackText = 'The e-mail address is valid :)';
+                    }
+                }
+            },
+            methods:{
+                changeWatchVar(){
+                    this.watchVar++
+                },
+                updatePos(event){
+                    this.xPos = event.offsetX;
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>

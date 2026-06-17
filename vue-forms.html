@@ -151,7 +151,13 @@
     </table>
     <!-- vue css can be bind with v-bind:class and v-bind:style -->
      <!-- css can be merge and bind in both style and classes   -->
-      
+      <!-- vue computed propertes -->
+      <div style="display:flex">
+        
+        <p v-if="checked">You are checked</p>
+        <p v-else>You are not checked</p>
+        <input type="checkbox" v-model="checked" name="" id="">
+      </div>
 </div>
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -169,7 +175,7 @@ createApp({
             name: '',
             email: '',
             message: '',
-
+            checked:false,
             itemList:
                 JSON.parse(
                     localStorage.getItem('formData')
@@ -282,7 +288,8 @@ createApp({
             //     JSON.stringify(this.itemList)
             // );
 
-        }
+        },
+
 
     }
 
