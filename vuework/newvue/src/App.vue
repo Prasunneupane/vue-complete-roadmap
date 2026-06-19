@@ -14,7 +14,8 @@
     Understand Everything from start how it works. How it functions?
     Everything... :)
   </div>
-  <FoodItem></FoodItem> 
+  <FoodItem food-item="Raspberyy " food-description="Raspberry is an amazing fruit."></FoodItem> 
+  <FoodItem food-item="Saake " food-description="Sake is Japanese rice wine."></FoodItem>
 </template>
 
 <style >
