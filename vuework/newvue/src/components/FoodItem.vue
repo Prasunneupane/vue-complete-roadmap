@@ -5,6 +5,8 @@
         <p>{{ message }}</p>
         <p>You liked this food {{ Count }} times</p>
         <p>Food Description: {{ foodDescription }}</p>
+        <p>Food Name: {{ foodName }}</p>
+
     </div>
 </template>
 <script>
@@ -13,15 +15,18 @@ export default{
         return{
             name:"Mexical Food",
             message:"I want to eat mexican food",
-            Count:0
+            Count:0,
+           
         }
     },
     methods:{
         CountClicks(){
             this.Count++
+            this.$emit('add-favorite',this.foodName)
+            
         }
     },
-    props:['foodItem','foodDescription'],
+    props:['foodItem','foodDescription','foodName'],
 }
 </script>
 <style>
