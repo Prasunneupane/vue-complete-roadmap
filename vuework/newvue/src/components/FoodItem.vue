@@ -8,7 +8,7 @@
         <p>Food Name: {{ foodName }}</p>
         <p><b>Do you like this food?</b></p>
         <button @click="CountClicks">Like</button>
-        
+        <!-- working on vue magic  -->
     </div>
 </template>
 <script>
