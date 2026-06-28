@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div @click="CountClicks">
         <h1>{{ foodItem}}</h1>
         <h2>{{ name }}</h2>
@@ -7,8 +8,10 @@
         <p>Food Description: {{ foodDescription }}</p>
         <p>Food Name: {{ foodName }}</p>
         <p><b>Do you like this food?</b></p>
-        <button @click="CountClicks">Like</button>
+        
         <!-- working on vue magic  -->
+    </div>
+    <button @click="CountButtonClicks">Like</button>
     </div>
 </template>
 <script>
@@ -26,7 +29,13 @@ export default{
         CountClicks(){
             this.Count++
             this.like=!this.like
-            this.$emit('add-favorite',this.foodName)
+            // this.$emit('add-favorite',this.foodName  )
+            
+        },
+        CountButtonClicks(){
+            // this.Count++
+            this.like=!this.like
+            this.$emit('toggle-favorite',this.foodName +'s' )
             
         }
     },
